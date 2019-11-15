@@ -1,16 +1,14 @@
 import pandas as pd
-import os
+import os,glob
 import math
-#
-arr = os.listdir('C://Users//panka//Desktop//pritam//programs//20191101//')
-# df2 = pd.read_csv('ABC 01 NOV 19 CALL 86.5.csv')
-# print(df1)
-# df3 = pd.concat([df1,df2])
-# df3.to_csv('1.csv')
-# df = pd.read_csv('1.csv')
-print(arr)
 
-def file_to_df(filenames):
+path= '20191101/'
+files = glob.glob(path+"*.csv")
+filenames = os.listdir('20191101')
+
+
+
+def file_to_df(files, filenames):
 
     base1 = os.path.splitext(filenames)
 
@@ -26,13 +24,12 @@ def file_to_df(filenames):
         strike= float(b1[5])
     # print(strike)
 
-    df = pd.read_csv(filenames)
+    df = pd.read_csv(files)
     c = 0
     for i in df.iterrows():
         c += 1
     # no of rows in file
 
-    df = pd.read_csv(filenames)
 
     sym = []
     dt = []
@@ -51,21 +48,14 @@ def file_to_df(filenames):
     return df
 
 
-# df1 = file_to_df(file1)
-# df2 = file_to_df(file2)
-# print(df2)
-#
-# df3 = pd.concat([df1,df2])
-# df3.to_csv('20191101.csv')
 
-#
 dtf=[]
-for i in arr:
-    file=i;
-    dtf.append(file_to_df(file))
+for i in range(len(files)):
+    dtf.append(file_to_df(files[i], filenames[i]))
 
 f = pd.concat(dtf)
 
-# f.to_csv('1.csv')
-# print(f)
+f.to_csv('20191101.csv')
+
+print("merging done")
 
